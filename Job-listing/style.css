@@ -1,0 +1,27 @@
+.mainbox{
+    width:70%;
+    
+    display: flex;
+    justify-content: center;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    gap:40px;
+    
+    margin: auto;
+    margin-top: 20px;
+}
+.local{
+    display: flex;
+    gap: 20px;
+}
+img{
+    margin-top: 20px;
+    height: 200px;
+    width: 200px;
+}
+.box3{
+
+    display: flex;
+    gap: 20px;
+    margin-top: 50px;
+  padding-left: 100px;
+}

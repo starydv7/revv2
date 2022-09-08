@@ -1,13 +1,13 @@
 fetch("data.json")
-    .then((res) => res => res.json())
-    .then((res) => {
-    getdata(res.detail)
-    })
+.then((res)=>res.json())
+.then((res)=>{
+   getdata(res.detail)
+})
  
 
 function getdata(data) {
-    data.map(function (el, i) {
-        var mainbox = document.createAttElement("div")
+      data.map(function(el,i) {
+        var mainbox = document.createElement("div")
         mainbox.setAttribute("class", mainbox)
         var box1 = document.createElement("div")
         var img = document.createElement('img')
