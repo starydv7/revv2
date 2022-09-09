@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <div id="class1">
+
+    </div>
+  </body>
 </html>
 
 <script>
@@ -20,13 +24,15 @@
   var obj = { name: "masai school", place: "Banglore" };
   localStorage.setItem("company", JSON.stringify(obj));
   var result = JSON.parse(localStorage.getItem("company"));
-  console.log(result);
+  console.log(result.name);
 
   var json = { name: "masaiSchool", places: "Banglore" };
 
   // whenever you are storing data to local storage - stringify
 
   // whenever you are getting back data -- parse
+    // class1.append(JSON.parse(result));
+    // document.body.append(JSON.parse(json));
 
   
 
