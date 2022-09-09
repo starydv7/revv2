@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  var arr = [1, 2, 3, 4];
+
+  localStorage.setItem("myArray", JSON.stringify(arr));
+
+  var storedArr = JSON.parse(localStorage.getItem("myArray"));
+  console.log(storedArr[0]);
+
+  var obj = { name: "masai school", place: "Banglore" };
+  localStorage.setItem("company", JSON.stringify(obj));
+  var result = JSON.parse(localStorage.getItem("company"));
+  console.log(result);
+
+  var json = { name: "masaiSchool", places: "Banglore" };
+
+  // whenever you are storing data to local storage - stringify
+
+  // whenever you are getting back data -- parse
+
+  
+
+</script>

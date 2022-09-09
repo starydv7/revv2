@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1></h1>
+    <button id="inc">Increment</button>
+    <button id="dec">Decrement</button>
+  </body>
+</html>
+
+<script>
+  document.querySelector("#inc").addEventListener("click", incFun);
+
+  var counter = localStorage.getItem("counterStorage") || 0;
+  //   var counter;
+  //   if (counter == null) {
+  //     counter = 0;
+  //   } else {
+  //     counter = localStorage.getItem("counterStorage");
+  //   }
+
+  document.querySelector("h1").innerText = counter;
+  // here
+
+  function incFun() {
+    counter++;
+    localStorage.setItem("counterStorage", counter);
+    document.querySelector("h1").innerText = counter;
+  }
+
+  function decFun() {
+    counter--;
+    localStorage.setItem("counterStorage", counter);
+
+    document.querySelector("h1").innerText = counter;
+  }
+
+  document.querySelector("#dec").addEventListener("click", decFun);
+
+  var get = localStorage.getItem("cwddjbdwcjbjcdbjhcdjscbd");
+  console.log(get);
+
+  // or operator || +
+  console.log(0 || null); // 1
+  console.log(true || false); // true
+  console.log(null || true); // true
+
+  console.log(true || null);
+
+  console.log(localStorage.getItem("dwhdbjhdbjdbshdjc") || 0);
+
+  if (counter == null) {
+    counter = 0;
+  } else {
+    counter = localStorage.getItem("counterStorage");
+  }
+
+  console.log(null || true);
+  console.log(true || null);
+
+  console.log(localStorage.getItem("counterStorage") || 0); // 6||0 = 6
+
+  if (true) {
+    console.log("here");
+  } else {
+    console.log("here 2");
+  }
+
+  console.log(1 || 0);
+  console.log(0 || 1);
+
+  console.log(null || 1);
+  console.log(null || 0);
+  console.log(null || null);
+
+  // whenever 1st statement is false, it will move to second
+  // statement and print the second statement
+</script>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .nav {
+        display: flex;
+        background-color: #2d3b45;
+        color: thistle;
+        justify-content: space-between;
+        height: 50px;
+        padding: 20px 0 0 20px;
+        width: 70%;
+      }
+      .right {
+        display: flex;
+        width: 30%;
+        justify-content: space-around;
+      }
+      .left {
+        width: 70%;
+      }
+      select {
+        background-color: #2d3b45;
+        color: white;
+        border: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <div class="left">MEGAWIDTH</div>
+      <div class="right">
+        <div>
+          <a href="home.html" target="_blank">Home</a>
+        </div>
+        <div id="about">About</div>
+        <div onclick="window.location.href='blog.html'">Blog</div>
+        <!-- <div>Page</div> -->
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  //anchor tag
+  // onclick
+  // click eventListener
+
+  document.querySelector("#about").addEventListener("click", function () {
+    window.location.href = "about.html";
+  });
+</script>

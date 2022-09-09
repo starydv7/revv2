@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  // setItem
+  localStorage.setItem("Student1", "Anuj");
+  // keys are unique
+  localStorage.setItem("Student1", "Anand");
+  localStorage.setItem("Student2", "Alim");
+  localStorage.setItem("Student3", "Kalyani");
+
+  localStorage.setItem("mobileNum", 999999999);
+
+  //getItem
+
+  var student1 = localStorage.getItem("Student1");
+  console.log(student1);
+
+  var mobile = localStorage.getItem("mobileNum");
+  console.log(mobile);
+
+  localStorage.removeItem("cvv")
+
+  localStorage.removeItem("Student2")
+
+  localStorage.clear()
+
+
+  
+  // removeItem
+
+  //clearAll
+</script>
