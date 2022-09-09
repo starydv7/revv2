@@ -12,6 +12,6 @@
 <script>
   localStorage.setItem("userName", "chandra");
 
-  var cvv = localStorage.getItem("cvv");
+  var cvv = JSON.parse(localStorage.getItem("username"));
   console.log(cvv);
 </script>
