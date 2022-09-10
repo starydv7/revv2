@@ -4,7 +4,7 @@ let products = {
             productsName: "Regular white Tshirts",
             category: "TopWear",
             price: "3054",
-            image: ""
+            image: "https://m.media-amazon.com/images/I/71pyxqMnLUL._UL1500_.jpg"
         },
           
         {
@@ -52,7 +52,7 @@ let products = {
         {
             productsName: "Regular red Tshirts",
             category: "TopWear",
-            price: "30",
+            price: 30,
             image: "https://m.media-amazon.com/images/I/71pyxqMnLUL._UL1500_.jpg"
         },
 
@@ -61,21 +61,28 @@ let products = {
 console.log(products.data);
 
 for (let i of products.data) {
-    //create card
     let card = document.createElement("div");
-    card.classList.add("card", 'i.category');
-
-    //image div
-
+    card.classList.add("card", "i.category");
     let imgContainer = document.createElement("div");
     imgContainer.classList.add("image-container");
-    //img tag
-
     let image = document.createElement("img");
-    imgContainer.setAttribute("src", i.image);
+    image.setAttribute("src", i.image);
     imgContainer.appendChild(image);
     card.appendChild(imgContainer);
-    
+    //container
+    let container = document.createElement("div");
+    container.classList.add("container");
 
+    //products name
+
+    let name = document.createElement('h5');
+    name.classList.add("product-name");
+    name.innerText=i.productsName.toUpperCase();
+    container.appendChild(name);
+//price
+    let price= document.createElement("h6");
+    price.innerText = "$"+ i.price;
+    container.appendChild(price);
+    card.appendChild(container);
     document.getElementById("products").appendChild(card);
 }

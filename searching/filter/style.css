@@ -48,4 +48,26 @@ body{
 background-color: rgb(55, 55, 125);
 color: #ffffff;
 }
-
+#products{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: 1.5rem;
+    padding: 2em 0;
+}
+.card{
+    background-color: aliceblue;
+    max-width: 18em;
+    margin-top: 1em;
+    padding: 1em;
+    border-radius: 5px;
+    box-sizing: 1em 2em;
+   
+}
+.image-container{
+    text-align: center;
+}
+img{
+    width: 100%;
+    object-fit: contain;
+    height: 15em;
+}
