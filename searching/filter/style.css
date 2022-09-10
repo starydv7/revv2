@@ -33,6 +33,9 @@ body{
     border-radius: 5px;
     margin-top: 0.5em;
 }
+.button{
+    gap: 10px;
+}
 .button-value{
     border: 2px solid blueviolet;
     padding: 1em 2 .2em;
