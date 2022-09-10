@@ -62,7 +62,8 @@ console.log(products.data);
 
 for (let i of products.data) {
     let card = document.createElement("div");
-    card.classList.add("card", "i.category");
+    //card sholud have category initially but hidden
+    card.classList.add("card", i.category,"hide");
     let imgContainer = document.createElement("div");
     imgContainer.classList.add("image-container");
     let image = document.createElement("img");
@@ -85,4 +86,41 @@ for (let i of products.data) {
     container.appendChild(price);
     card.appendChild(container);
     document.getElementById("products").appendChild(card);
+}
+
+//initially display all products
+
+
+function filterProduct(value) {
+    let button = document.querySelector("button-value");
+    button.forEach((button) => {
+        if (value.toUpperCase() == button.innerText.toUpperCase()) {
+            button.classList.add("active");
+        }
+        else {
+            button.classList.add.remove("active");
+        }
+    });
+    //select all card
+    let elements = document.querySelectorAll(".card");
+    //loop through all card
+    elements.forEach((elements) => {
+        //display all cards on all button
+        if (value === "all") {
+            elements.classList.add.remove('hide');
+        }
+        else {
+            //check if elements contains category class
+            if (elements.classList.contains(value)) {
+                //display all cars based on category
+                elements.classList.remove("hide");
+            }
+            else {
+                elements.classList.add("hide");
+            }
+        }
+    });
+}
+window.onload = () => {
+    filterProduct("all");
 }

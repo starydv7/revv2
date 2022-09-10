@@ -71,3 +71,41 @@ img{
     object-fit: contain;
     height: 15em;
 }
+.container{
+    padding-top: 1em;
+    color: #110f29;
+}
+h5{
+    font-weight: 500;
+}
+@media screen and (max-width:720px){
+    img{
+        max-width: 100%;
+        object-fit: contain;
+        height: 10em;
+    }
+    .card{
+        max-width:10em;
+        margin-top: 1em;
+    }
+    #products{
+        grid-template-columns: auto auto;
+        grid-column-gap: 1em;
+    }
+}
+@media screen and (max-width:420px){
+    img{
+        max-width: 100%;
+        object-fit: contain;
+        height: 7em;
+    }
+    .card{
+        max-width:15em;
+        margin-top: 1em;
+        margin-left: 50px;
+    }
+    #products{
+        grid-template-columns: auto;
+        grid-column-gap: 1em;
+    }
+}
