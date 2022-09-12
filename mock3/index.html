@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+    <div id="nav">
+        <div class="inerbox">
+            <a href="./index.html">Products</a>
+            <a href="./wishlist.html">Wishlist</a>
+        </div>
+    </div>
+    <h1>Masai-Mart</h1>
+    <div id="main">
+        <div id="sort">
+            <p>Filter by category :- <span>
+                    <select name="filter" id="filter" onchange="handlefilter(value)">
+                        <option value="/">Filter by category</option>
+                        <option value="kids">kids</option>
+                        <option value="women">women</option>
+                        <option value="homedecor">homedecor</option>
+                    </select>
+                </span></p>
+            <div>
+                <div id="sort">
+                    <p>Sort by price :- <span>
+                            <select name="filter" id="filter" onchange="handlechange(value)">
+                                <option value="/">Sort by price</option>
+                                <option value="desc">High to Low</option>
+                                <option value="asc">Low to High</option>
+
+                            </select>
+                        </span></p>
+                    <div>
+                        <p>Pagination:- <span>
+                                <button onclick="handleclick(1)">1</button>
+                                <button onclick="handleclick(2)">2</button>
+                                <button onclick="handleclick(3)">3</button>
+                                <button onclick="handleclick(4)">4</button>
+                            </span></p>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div id="container"></div>
+</body>
+
+</html>
+<script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || []
+    let products = JSON.parse(localStorage.getItem("product"))
+    // console.log(product)
+    let y = []
+    function fetchdata(page = 1, sort = "asc") {
+
+        fetch(`https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-products?page=${page}&limit=12&orderBy=${sort}`).
+            then((res) => res.json()).
+            then((res) => {
+                let data = res.data
+                y = data
+
+                getdata(data)
+                console.log(data)
+                //    localStorage.setItem("product",JSON.stringify(data))
+
+            }).catch((err) => {
+                console.log(err)
+            })
+    }
+    fetchdata()
+    var x = 1
+    function handleclick(value) {
+        x = value
+        fetchdata(value)
+
+
+    }
+
+
+    function handlechange(sort) {
+        // console.log(sort)
+        fetchdata(x, sort)
+    }
+
+    function handlefilter(value) {
+        const newdata = y.filter((el) => {
+            return el.category === value
+
+        })
+        getdata(newdata)
+        console.log(newdata)
+    }
+    function getdata(product) {
+         document.querySelector("#container").innerHTML = ""
+         product.map(function (elem) {
+            var box = document.createElement("div");
+
+            var img = document.createElement("img");
+            img.src = elem.image;
+            var div = document.createElement("div")
+            div.setAttribute("class", "name")
+            var div2 = document.createElement("div")
+            var title = document.createElement("p");
+            title.textContent = elem.title;
+
+            var price = document.createElement("p");
+            price.innerText = elem.price + "$";
+            var div3 = document.createElement("div")
+            var wishlist = document.createElement("p");
+            wishlist.innerHTML = "❤️";
+            wishlist.style.cursor = "pointer"
+            wishlist.addEventListener("click", function () {
+                addTowishlist(elem);
+            });
+
+            div2.append(title, price)
+            div3.append(wishlist)
+            div.append(div2, div3)
+            box.append(img, div);
+
+            document.querySelector("#container").append(box);
+        });
+
+        function addTowishlist(elem) {
+            cart.push(elem)
+            localStorage.setItem("cart", JSON.stringify(cart))
+        }
+    }
+
+
+
+
+</script>
