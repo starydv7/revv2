@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .priceDiv {
+        display: flex;
+        justify-content: space-around;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+</html>
+<script src="./Data/mensData.js"></script>
+<script>
+  var mensData = JSON.parse(localStorage.getItem("mensData"));
+  console.log(mensData);
+  mensData.map(function (elem) {
+    var mainDiv = document.createElement("div");
+
+    var img = document.createElement("img");
+    img.setAttribute("src", elem.image_url);
+
+    var name = document.createElement("p");
+    name.innerText = elem.name;
+
+    var innerDiv = document.createElement("div");
+
+    var price = document.createElement("p");
+    price.innerText = elem.price;
+
+    var strikedoffprice = document.createElement("s");
+    strikedoffprice.innerText = elem.strikedoffprice;
+    //strikedoffprice.style.textDecoration = "line-through";
+
+    innerDiv.append(price, strikedoffprice);
+    innerDiv.setAttribute("class", "priceDiv");
+
+    var cart = document.createElement("button");
+    cart.innerText = "Add to cart";
+    cart.addEventListener("click", function () {
+      addToCart(elem);
+    });
+
+    mainDiv.append(img, name, innerDiv, cart);
+
+    document.querySelector("#container").append(mainDiv);
+  });
+</script>
+
+// cart page // i wnat all items which i click on add

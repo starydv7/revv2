@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Login</h1>
+    <form id="form">
+      <input id="user" type="text" placeholder="Enter username" />
+      <input id="pass" type="password" placeholder="Enter password" />
+      <input type="submit" value="login" />
+    </form>
+  </body>
+</html>
+
+<script>
+  var regdUsers = JSON.parse(localStorage.getItem("signUpDetails"));
+  console.log(regdUsers);
+
+  document.querySelector("#form").addEventListener("submit", formSubmit);
+
+  var form = document.querySelector("#form");
+
+  //console.log(form.user.value);
+  // form.id.value
+  function formSubmit(event) {
+    event.preventDefault();
+
+    var user = form.user.value;
+    var pass = form.pass.value;
+    console.log(user, pass);
+
+    var flag= false
+    for (var i = 0; i < regdUsers.length; i++) {
+      if (regdUsers[i].user == user && regdUsers[i].pass == pass) {
+        flag=true
+      } else {
+        
+      }
+    }
+  }
+
+
+  // whenever you want to store multiple objects
+</script>
