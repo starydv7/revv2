@@ -1,0 +1,25 @@
+#nav{
+    background-color: black;
+    width: 100%;
+    color: white;
+  
+    height: 50px;
+   
+   
+}
+.inerbox{
+    color: white;
+    gap: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px;
+    text-align: center;
+    
+}
+a{
+    color: white;
+    text-decoration: none;
+}
+a:hover{
+    color: teal;
+}

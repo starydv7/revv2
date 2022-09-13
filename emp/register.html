@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        #container {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #registerForm {
+            display: flex;
+            flex-direction: column;
+              box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+        }
+        #loginForm{
+            box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+        }
+    </style>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <div>
+            <h2>Register here</h2>
+            <form id="registerForm">
+                <input type="text" name="name_input" placeholder="enter name" />
+                <br />
+                <input type="email" name="email_input" placeholder="enter your email" />
+                <br />
+                <input type="password" name="password_input" placeholder="password" />
+                <br />
+                <input type="text" name="username_input" placeholder="username" />
+                <br />
+                <input type="number" name="mobile_input" placeholder="mobile number" />
+                <br />
+                <textarea name="description_input" placeholder="Description"></textarea>
+                </br>
+                <input type="submit" value="Sign Up" />
+            </form>
+        </div>
+        <div>
+            <h2>Login here</h2>
+            <form id="loginForm">
+                <input type="text" name="username_input" placeholder="username" />
+                <br />
+                <input type="password" name="password_input" placeholder="password" />
+                <br />
+                <input type="submit" value="Login" />
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

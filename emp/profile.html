@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        #nav {
+            background-color: black;
+            width: 100%;
+            color: white;
+  
+    height: 50px;
+   
+   
+}
+.inerbox{
+    color: white;
+    gap: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px;
+    text-align: center;
+    
+}
+a{
+    color: white;
+    text-decoration: none;
+}
+a:hover{
+    color: teal;
+}
+h1{
+    color: green;
+    font: 600;
+}
+p{
+    color: blue;
+    font-size: 20px;
+}
+    </style>
+</html>
+</head>
+
+<body>
+
+
+    <div id="nav">
+        <div class="inerbox">
+            <a href="employee.html">Employee</a>
+            <!-- <a href="homepage.html">HomePage</a> -->
+            <a href="register.html">Register</a>
+            <a href="profile.html">User Profile</a>
+        </div>
+        <h1>Profile Details</h1>
+    </div>
+
+
+
+</body>
+
+    <script type="text/javascript">
+
+                        window.addEventListener("load", function () {
+                            let username = localStorage.getItem("username")
+                            let token = localStorage.getItem("token")
+
+                        fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`, {
+                            method: "GET",
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
+                        })
+                            .then((res) => res.json())
+                            .then((data) => display(data))
+                            .catch((err) => console.log(err))
+                    })
+
+                        function display(data) {
+                            const { description, name, email, username, mobile } = data;
+                            const div = document.querySelector("div")
+
+                        const p = document.createElement("p")
+                        p.innerText = "Name :" + name;
+
+
+                        div.append(p)
+                    }
+
+    </script>

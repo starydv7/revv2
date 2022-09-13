@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+            #container {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                box-sizing: border-box;
+                gap: 10px;
+        
+        
+        
+            }
+        
+            .maindiv {
+                border-radius: 10px;
+                box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+            }
+                    #nav {
+            background-color: black;
+            width: 100%;
+            color: white;
+  
+    height: 50px;
+   
+   
+}
+.inerbox{
+    color: white;
+    gap: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px;
+    text-align: center;
+    
+}
+a{
+    color: white;
+    text-decoration: none;
+}
+a:hover{
+    color: teal;
+}
+        </style>
+    </head>
+    <body>
+        <div id="nav">
+            <div class="inerbox">
+                <a href="employee.html">Employee</a>
+                <!-- <a href="login.html">Login</a> -->
+                <a href="register.html">Register</a>
+                <a href="profile.html">User Profile</a>
+            </div>
+        </div>
+        <div id="main">
+            <div id="sort">
+                <p>Filter by category :- <span>
+                        <select name="filter" id="filter" onchange="handlefilter(value)">
+                            <option value="/">Filter by Department</option>
+                            <option value="Training">Training</option>
+                            <option value="Product Management">Products management</option>
+                            <option value="Research and Development">Research</option>
+                        </select>
+                    </span></p>
+                <div>
+                    <div id="sort">
+                        <p>Sort by salary :- <span>
+                                <select name="filter" id="filter" onchange="handlechange(value)">
+                                    <option value="/">Sort by Salary</option>
+                                    <option value="desc">High to Low</option>
+                                    <option value="asc">Low to High</option>
+        
+                                </select>
+                            </span></p>
+                        <div>
+                            <p>Pagination:- <span>
+                                    <button onclick="handleclick(1)">1</button>
+                                    <button onclick="handleclick(2)">2</button>
+                                    <button onclick="handleclick(3)">3</button>
+                                    <button onclick="handleclick(4)">4</button>
+                                    <button onclick="handleclick(5)">5</button>
+                                    <button onclick="handleclick(6)">6</button>
+                                    <button onclick="handleclick(7)">7</button>
+                                </span></p>
+        
+                        </div>
+        
+        
+                    </div>
+                </div>
+         <div id="container">
+
+         </div>
+        
+        <script src="emp.js" async defer></script>
+    </body>
+</html>
