@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+    <title>Employees Listing Page</title>
+  
+</head>
+<body>
+    <div id="navbar">
+        <!-- <h4 style=" text-align: left;">Masai-employee</h4> -->
+        <h4> <a href="./index.html">Home</a>
+            </h4>
+        <h4><a href="./employee.html">Employee</a></h4>
+        <h4><a href="./register.html">Register</a></h4>
+        <h4>
+             <a href="./login.html">Login</a>
+        </h4>
+       </div>
+    <div>
+        <h1>Employees Listing Page </h1>
+    </div>
+    <div id="sort">
+        <p>Filter by category :- <span>
+            <select name="filter" id="filter" onchange="handlefilter(value)">
+                <option value="empty">Filter by Department</option>
+                <option value="Training">Training</option>
+                <option value="Product Management">Product Management</option>
+                <option value="Business Development">Business Development</option>
+                <option value="Research and Development	">	Research and Development	</option>
+                <option value="Services">Services</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Training">Training</option>
+            </select>
+        </span></p> 
+        <div>
+    <p>Pagination:- <span>
+        <button onclick="handleclick(1)">1</button>
+    <button onclick="handleclick(2)">2</button>
+    <button onclick="handleclick(3)">3</button>
+    <button onclick="handleclick(4)">4</button>
+    <button onclick="handleclick(5)">5</button>
+    <button onclick="handleclick(6)">6</button>
+    <button onclick="handleclick(7)">7</button>
+   
+    </span></p>
+    
+</div>
+<div id="sort">
+    <p>Sort by Salary :- <span>
+        <select name="filter" id="filter" onchange="handlechange(value)">
+            <option value="empty">Sort by Salary</option>
+            <option value="desc">High to Low</option>
+            <option value="asc">Low to High</option>
+           
+        </select>
+    </span></p>
+    </div>
+    <div>
+        <input type="text" id="search" placeholder="Search the Name">
+        <button onclick="searchHandle()">Search</button>
+    </div>
+ <div id="container">
+ <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Gender</th>
+                <th>Salary</th>
+            </tr>
+           
+        </thead>
+        <tbody id="tbody">
+   
+        </tbody>
+      </table>
+     
+    </div>
+</body>
+</html>
+<script>
+     let y;
+function fetchdata(){
+
+ fetch(`https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-employees`).
+then((res)=>res.json()).
+then((res)=>{
+ let data=res.data
+ y=data
+ getdata(data)
+console.log(data)
+}).catch((err)=>{
+ console.log(err)
+})
+}
+fetchdata()
+
+
+function pagesort(page){
+
+ fetch(`https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-employees?page=${page}&limit=10`).
+then((res)=>res.json()).
+then((res)=>{
+ let data=res.data
+ y=data
+ getdata(data)
+console.log(data)
+}).catch((err)=>{
+ console.log(err)
+})
+}
+let page=1;
+function handleclick(value){
+    console.log(value)
+    pagesort( value) 
+    page=value;  
+}
+
+function handlefilter(data){
+    const newdata=y.filter((el)=>{
+        return el.department===data
+
+    })
+    getdata(newdata)
+    // console.log(y)
+}
+function handlechange(value){
+    
+    if(value=="asc")
+    {
+        let newdata= y.sort((a,b)=>{
+            return a.salary -b.salary
+        })
+        getdata(newdata)
+    }
+    if(value=="desc")
+    {
+        let newdata= y.sort((a,b)=>{
+            return  b.salary-a.salary
+        })
+        getdata(newdata)
+    }
+}
+
+function searchHandle(){
+    let value=document.getElementById("search").value
+    if(value!=""){
+        const newdata=y.filter((el)=>{
+        return el.name===value
+
+    })
+    getdata(newdata)
+    }
+}
+
+
+function getdata(data){
+ let tbody=document.getElementById("tbody")
+ document.querySelector("#tbody").innerHTML=""
+ 
+
+data.map((el)=>{
+let row_1 = document.createElement('tr');
+let heading_1 = document.createElement('th');
+let img=document.createElement("img")
+ img.src="https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png"
+ img.style.height="100px"
+ img.style.width="100px"
+let heading_2 = document.createElement('th');
+heading_2.innerHTML =el.name
+let heading_3 = document.createElement('th');
+heading_3.innerHTML = el.department
+
+let heading_4 = document.createElement('th');
+heading_4.innerHTML = el.gender;
+let heading_5 = document.createElement('th');
+heading_5.innerHTML = el.salary
+let line=document.createElement("hr")
+;
+
+heading_1.append(img)
+row_1.append(heading_1,heading_2,heading_3,heading_4,heading_5,line)
+tbody.appendChild(row_1);
+})
+   
+}
+
+</script>

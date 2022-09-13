@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+    <title>Login Page</title>
+</head>
+<body>
+  <div id="navbar">
+    <!-- <h4 style=" text-align: left;">Masai-employee</h4> -->
+    <h4> <a href="./index.html">Home</a>
+        </h4>
+    <h4><a href="./employee.html">Employee</a></h4>
+    <h4><a href="./register.html">Register</a></h4>
+    <h4>
+         <a href="./login.html">Login</a>
+    </h4>
+   </div>
+    <div id="container1">
+    <div id="login-form">
+        <h1>Login</h1>
+        <form onsubmit="Login(event)">
+            <input type="text" id="login-username" placeholder="Username"><br>
+           
+            <input type="text" id="login-password" placeholder="Password"><br>
+            <!-- <button >Login</button> -->
+            <input type="submit">
+        </form>
+        
+    </div>
+</div>
+</body>
+</html>
+<script>
+       function Login(event){
+        event.preventDefault();
+        let login_data={
+            password:document.getElementById("login-password").value,
+            username:document.getElementById("login-username").value
+          
+          
+        }
+        localStorage.setItem("name",document.getElementById("login-username").value)
+        
+        console.log(login_data)
+        let login_api_link=`https://masai-api-mocker.herokuapp.com/auth/login`
+        fetch(login_api_link, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(login_data)
+    })
+      .then((res) => res.json())
+      .then((res) => {
+       console.log(res)
+       localStorage.setItem("token",res.token)
+        if(res.error===false)
+           {
+            window.location.href="index.html"
+           }
+        
+      })
+      .catch((err) => {});
+       
+    }
+</script>
+

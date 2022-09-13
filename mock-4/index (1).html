@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+    <title>Home Page</title>
+</head>
+<body>
+    <div id="navbar">
+        <!-- <h4 style=" text-align: left;">Masai-employee</h4> -->
+        <h4> <a href="/">Home</a>
+            </h4>
+        <h4><a href="./employee.html">Employee</a></h4>
+        <h4><a href="./register.html">Register</a></h4>
+        <h4>
+             <a href="./login.html">Login</a>
+        </h4>
+       </div>
+
+       <div id="container2">
+      <h1>Login Details</h1>
+       </div>
+    
+</body>
+</html>
+<script>
+let name=localStorage.getItem("name")
+let token=localStorage.getItem("token")
+
+     let login_api_link=`https://masai-api-mocker.herokuapp.com/user/${name}`
+        fetch(login_api_link, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    //   body: JSON.stringify(login_data)
+    })
+      .then((res) => res.json())
+      .then((res) => {
+       console.log(res)
+       getdata(res)
+ })
+      .catch((err) => {});
+       
+    
+    function getdata(data){
+let main=document.createElement("div")
+let name=document.createElement("h2")
+name.innerText= "Name :" + data.name;
+let email=document.createElement("h2")
+email.innerText= " Email :"+data.email;
+// let password=document.createElement("h2")
+// password.innerText="Password :" +data.password;
+let mobile=document.createElement("h2")
+mobile.innerText="Mobile :"+ data.mobile;
+let description=document.createElement("h2")
+description.innerText="Description : "+data.description;
+
+main.append(name,email,mobile,description)
+document.getElementById("container2").append(main)
+    }
+</script>

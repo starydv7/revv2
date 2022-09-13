@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+    <title>Register Page</title>
+</head>
+<body>
+    <div id="navbar">
+        <!-- <h4 style=" text-align: left;">Masai-employee</h4> -->
+        <h4> <a href="./index.html">Home</a>
+            </h4>
+        <h4><a href="./employee.html">Employee</a></h4>
+        <h4><a href="./register.html">Register</a></h4>
+        <h4>
+             <a href="./login.html">Login</a>
+        </h4>
+       </div>
+    <div id="container1">
+        <div id="register-form">
+            <h1>Register</h1>
+            <form>
+                <input type="text" id="name" placeholder="Name"><br>
+                <input type="text" id="email" placeholder="Email"><br>
+                <input type="text" id="password" placeholder="Password"><br>
+                <input type="text" id="username" placeholder="Username"><br>
+                <input type="text" id="mobile" placeholder="Mobile"><br>
+                <input type="text" id="description" placeholder="Description"><br>
+            </form>
+            <button onclick="Register()">SignUp</button>
+        </div>
+        </div>
+</body>
+</html>
+<script>
+    let x;
+     async function Register(){
+        let signup_data={
+            name:document.getElementById("name").value,
+            email:document.getElementById("email").value,
+            password:document.getElementById("password").value,
+            username:document.getElementById("username").value,
+            mobile:document.getElementById("mobile").value,
+            description:document.getElementById("description").value,
+        }
+        signup_data=JSON.stringify(signup_data)
+        console.log(signup_data)
+        let signup_api_link=`https://masai-api-mocker.herokuapp.com/auth/register`
+           fetch(signup_api_link,{
+                method:'POST',
+
+                body:signup_data,
+
+                headers:{
+                    'Content-Type':'application/json'
+                }
+
+    
+          }) .then((res)=>res.json()).then((res)=>{
+          console.log(res)
+            if(res.error===false)
+           {
+            window.location.href="login.html"
+           }
+           
+          })
+          
+       
+      
+    //    console.log(x)
+    }
+</script>
