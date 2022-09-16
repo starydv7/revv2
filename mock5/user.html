@@ -1,20 +1,12 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>user</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="index.css">
-    <style>
-       
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+    <title>Document</title>
 </head>
 
 <body>
@@ -22,16 +14,59 @@
         <div><a href="index.html">Home</a></div>
         <div><a href="data.html">Data</a></div>
         <div><a href="login.html">Login</a></div>
-        <div><a href="reports.html">Report</a></div>
+        <div><a href="reports.html">Reports</a></div>
     </div>
-    <form action=""id="form">
-   <h3>Enter application Details</h3>
-       <input placeholder="Enter Name"id="name"name="name"type="text"/>
-        <input placeholder="Enter age" id="age" name="age" type="number" />
+    <form action="" id="form">
+        <h2>Enter Your Application Details</h2>
+        <input placeholder="Enter Name" id="name" name="name" type="text" />
+        <input placeholder="Enter Age" type="number" name="age" id="age" />
+        <input id="place" type="text" placeholder="Enter Place " />
+        <select name="role" id="role">
+            <option value="/">Select Profession</option>
+            <option class="option" value="FSD">FSD</option>
+            <option class="option" value="Backend">Backend</option>
+            <option class="option" value="Frontend">Frontend</option>
+            <option class="option" value="Student">Student</option>
+        </select>
+        <select name="batch_" id="batch">
+            <option value="/">Select Batch Name</option>
+            <option value="WEB-13">WEB-13</option>
+            <option value="WEB-14">WEB-14</option>
+            <option value="WEB-15">WEB-15</option>
+            <option value="WEB-16">WEB-16</option>
+        </select>
 
+        <input id="submit" type="submit" name="submit" value="Submit" />
     </form>
-
-    <script src="" async defer></script>
 </body>
 
 </html>
+<script>
+    document.querySelector("#form").addEventListener("submit", myFunction);
+
+
+    function myFunction() {
+        event.preventDefault();
+        var jobObj = {
+            name: document.querySelector("#name").value,
+            age: document.querySelector("#age").value,
+            place: document.querySelector("#place").value,
+            batch_name: document.querySelector("#batch").value,
+            profession: document.querySelector("#role").value,
+
+        };
+        fetch("https://pawan-033.herokuapp.com/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jobObj)
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => { });
+
+    }
+</script>
