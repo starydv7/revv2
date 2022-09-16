@@ -1,41 +1,84 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>login</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-        <style>
-            #links{
-                display: flex;
-                background-color: red;
-                justify-content: space-around;
-                height: 30px;
-                padding: 1%;
-            }
-            a{
-                color: black;
-                font-weight: 500;
-                font-size: 30px;
-            }
-            a:hover{
-                color: greenyellow;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+    <title>Document</title>
 
-        </style>
-    </head>
-    <body>
-        <div id="links">
-            <div><a href="index.html">Home</a></div>
-            <div><a href="data.html">Data</a></div>
-            <!-- <div><a href="login.html">Login</a></div> -->
-            <div><a href="reports.html">Reports</a></div>
+</head>
+
+<body>
+
+    <div id="links">
+        <div><a href="index.html">Home</a></div>
+        <div><a href="data.html">Data</a></div>
+        <div><a href="login.html">Login</a></div>
+        <div><a href="reports.html">Reports</a></div>
+    </div>
+    <div>
+        <div>
+
+            <form action="" id="form">
+                <div>
+                    <label>
+                        Email :-
+                        <input id="email" type="email" name="email" placeholder="email" />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Password
+                        <input id="password" name="password" type="password" placeholder="password" />
+                    </label>
+                </div>
+                <div>
+                    <input id="submit" type="submit" value="Login" />
+                </div>
+            </form>
+
         </div>
-     
-        
-        <script src="" async defer></script>
-    </body>
+</body>
+
 </html>
+<script>
+    document.querySelector("#form").addEventListener("submit", myFunction);
+
+
+    function myFunction() {
+        event.preventDefault();
+        var login = {
+            email: document.querySelector("#email").value,
+            password: document.querySelector("#password").value,
+        };
+
+        fetch("https://reqres.in/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(login)
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res)
+                if (res.token) {
+                    alert("successfully login")
+                    localStorage.setItem("Token", res.token)
+                    window.location.href = "data.html"
+                }
+                if (res.error) {
+                    alert(`${res.error}`)
+                }
+
+
+            })
+            .catch((err) => { });
+    }
+
+
+
+
+</script>
