@@ -1,0 +1,6 @@
+#links{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1%;
+    box-shadow: 2px 2px 5px 5px rgb(233,233,233);
+}
