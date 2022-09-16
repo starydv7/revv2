@@ -44,6 +44,23 @@
 
         </div>
         
-        <script src="" async defer></script>
+        <script src="" async defer>
+             let login_api_link = "https://pawan-033.herokuapp.com/users"
+                fetch(login_api_link, {
+                    method: "GET",
+                  
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(jobObj)
+                })
+                            .then((res) => res.json())
+                            .then((res) => {
+                                console.log(res)
+                            })
+                            .catch((err) => { });
+
+    }
+        </script>
     </body>
 </html>
