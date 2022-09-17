@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+    <title>Wishlist Page</title>
+</head>
+<body>
+    <div>
+        <div id="links">
+            <div><a href="index.html">Ad</a></div>
+            <div><a href="cars.html">Cars</a></div>
+            <div><a href="wishlist.html">Wishlist</a></div>
+         </div>
+    </div>
+    <div id="heading">
+        <h2>Wishlist Card </h2>
+          </div>
+    <div id="container">
+
+    </div>
+</body>
+</html>
+<script>
+
+function fetchdata(){
+        fetch("https://masai-apicars.herokuapp.com/wishlisted_cars")
+    .then((res)=>res.json()).
+    then((res)=>{
+        // console.log(res)
+        totaldata=res
+        filterdata=res
+        getdata(res)
+    }).catch((err)=>{
+        console.log(err)
+    })
+
+    }
+    fetchdata()
+
+function getdata(product){
+   
+   document.querySelector("#container").innerHTML=""
+   product.map(function (el) {
+   var box = document.createElement("div");
+   var div=document.createElement("div")
+   div.setAttribute("class","img")
+   var img = document.createElement("img");
+   img.src = "https://stimg.cardekho.com/images/carexteriorimages/630x420/BMW/X5/6940/1653892238516/front-left-side-47.jpg";
+   
+   var div1=document.createElement("div")
+   div1.setAttribute("class","name")
+   var year=document.createElement("h3")
+   year.innerText=el.year
+   var brands=document.createElement("h3")
+   brands.innerText=el.brand
+
+
+   var type=document.createElement("h4")
+   type.innerText="LXI"+el.type;
+   type.style.marginTop="-15px"
+   type.style.color="grey"
+   type.style.marginLeft="10px"
+
+
+   var div2=document.createElement("div")
+   div2.setAttribute("class","used")
+   var run = document.createElement("p");
+   run.textContent = el.kms+ " "+"km";
+   var owner = document.createElement("p");
+   owner.textContent = "1stOwner";
+   var engin = document.createElement("p");
+   engin.textContent = "Petrol";
+
+
+
+   var div3=document.createElement("div")
+   div3.setAttribute("class","price")
+   var month=document.createElement("h3")
+   month.innerText= "₹" +Number(el.Price)*2/100+"/month"
+   month.style.color="red"
+ var price = document.createElement("p");
+   price.innerText = "₹"+ el.Price ;
+
+
+
+
+
+div.append(img)
+div1.append(year,brands)
+div2.append(run,owner,engin)
+div3.append(month,price)
+
+
+
+
+box.append(div,div1,type,div2,div3)
+
+
+   document.querySelector("#container").append(box);
+ });
+}
+</script>

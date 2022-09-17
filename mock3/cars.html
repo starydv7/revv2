@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+    <title>Car Page</title>
+</head>
+
+<body>
+    <div>
+        <div id="links">
+            <div><a href="index.html">Ad</a></div>
+            <div><a href="cars.html">Cars</a></div>
+            <div><a href="wishlist.html">Wishlist</a></div>
+        </div>
+    </div>
+    <div id="heading">
+        <h2>All Cars Details </h2>
+    </div>
+    <div id="mainbox1">
+        <div>
+            <h3>Filter by brand :- <span>
+                    <select name="filter" id="filter" onchange="handlefilter(value)">
+                        <option class="option" value="empty">Select Batch Name</option>
+                        <option class="option" value="Suzuki">Suzuki</option>
+                        <option class="option" value="Hyundai">Hyundai</option>
+                        <option class="option" value="Kia">Kia</option>
+                        <option class="option" value="Mahindra ">Mahindra </option>
+                        <option class="option" value="Toyota">Toyota</option>
+                        <option class="option" value="Honda">Honda</option>
+                    </select>
+                </span></h3>
+        </div>
+        <div>
+            <h3>Sort by price :- <span>
+                    <select name="filter" id="filter" onchange="handlechangesortbyprice(value)">
+                        <option value="/">Sort by price </option>
+                        <option value="desc">High to Low</option>
+                        <option value="asc">Low to High</option>
+
+                    </select>
+                </span></h3>
+        </div>
+        <div>
+            <h3>Sort by Kms driven:- <span>
+                    <select name="filter" id="filter" onchange="handlechangesortbykms(value)">
+                        <option value="/">Sort by Kms driven </option>
+                        <option value="desc">High to Low</option>
+                        <option value="asc">Low to High</option>
+
+                    </select>
+                </span></h3>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div id="container">
+
+    </div>
+
+</body>
+
+</html>
+<script>
+    let totaldata;
+    let filterdata;
+    function fetchdata() {
+        fetch("https://gentle-scrubland-49275.herokuapp.com/cars")
+            .then((res) => res.json()).
+            then((res) => {
+                // console.log(res)
+                totaldata = res
+                filterdata = res
+                getdata(res)
+            }).catch((err) => {
+                console.log(err)
+            })
+
+    }
+    fetchdata()
+    function Deletedata(id) {
+
+        fetch(`https://gentle-scrubland-49275.herokuapp.com/cars/${id}`, {
+            method: "DELETE",
+
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((res) => res.json())
+            .then((res) => {
+                console.log(res)
+                fetchdata()
+            }).catch((err) => {
+                console.log(err)
+            })
+    }
+
+
+
+    function adddatawishlist(el) {
+        console.log(el)
+        fetch("https://gentle-scrubland-49275.herokuapp.com/wishlisted_cars", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(el)
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res)
+                alert("Successfully Added into Wishlist")
+            })
+            .catch((err) => {
+                alert("This Car Already Persent in Whislist Page")
+            });
+    }
+
+    function handlechangesortbyprice(value) {
+
+        if (value == "asc") {
+            let newdata = totaldata.sort((a, b) => {
+                return a.Price - b.Price
+            })
+            totaldata = newdata
+            getdata(totaldata)
+
+        }
+        if (value == "desc") {
+            let newdata = totaldata.sort((a, b) => {
+                return b.Price - a.Price
+            })
+            totaldata = newdata
+            getdata(totaldata)
+
+        }
+    }
+
+    function handlechangesortbykms(value) {
+
+        if (value == "asc") {
+            let newdata = totaldata.sort((a, b) => {
+                return a.kms - b.kms
+            })
+            totaldata = newdata
+            getdata(totaldata)
+
+        }
+        if (value == "desc") {
+            let newdata = totaldata.sort((a, b) => {
+                return b.kms - a.kms
+            })
+            totaldata = newdata
+            getdata(totaldata)
+
+        }
+    }
+
+    function handlefilter(data) {
+        totaldata = filterdata;
+        let x = totaldata;
+
+        if (data == "empty") {
+
+            getdata(filterdata)
+
+
+        }
+        else {
+            const newdata = x.filter((el) => {
+                return el.brand === data
+
+            })
+            totaldata = newdata
+
+            getdata(totaldata)
+        }
+
+
+
+
+    }
+
+
+
+    function Editdata(id) {
+        localStorage.setItem("newid", id)
+        window.location.href = "edit.html"
+    }
+
+
+    function getdata(product) {
+
+        document.querySelector("#container").innerHTML = ""
+        product.map(function (el) {
+            var box = document.createElement("div");
+            var div = document.createElement("div")
+            div.setAttribute("class", "img")
+            var img = document.createElement("img");
+            img.src = "https://stimg.cardekho.com/images/carexteriorimages/630x420/BMW/X5/6940/1653892238516/front-left-side-47.jpg";
+
+            var div1 = document.createElement("div")
+            div1.setAttribute("class", "name")
+            var year = document.createElement("h3")
+            year.innerText = el.year
+            var brands = document.createElement("h3")
+            brands.innerText = el.brand
+
+            var type = document.createElement("h4")
+            type.innerText = "LXI" + el.type;
+            type.style.marginTop = "-15px"
+            type.style.color = "grey"
+            type.style.marginLeft = "10px"
+
+            var div2 = document.createElement("div")
+            div2.setAttribute("class", "used")
+            var run = document.createElement("p");
+            run.textContent = el.kms + " " + "km";
+            var owner = document.createElement("p");
+            owner.textContent = "1stOwner";
+            var engin = document.createElement("p");
+            engin.textContent = "Petrol";
+
+
+
+            var div3 = document.createElement("div")
+            div3.setAttribute("class", "price")
+            var month = document.createElement("h3")
+            month.innerText = "₹" + Number(el.Price) * 2 / 100 + "/month"
+            month.style.color = "red"
+            var price = document.createElement("p");
+            price.innerText = "₹" + el.Price;
+
+
+
+            var div4 = document.createElement("div")
+            div4.setAttribute("class", "button")
+            var edit = document.createElement("button")
+            edit.innerText = "Edit"
+            edit.addEventListener("click", function () {
+                Editdata(el.id)
+            })
+            var clears = document.createElement("button")
+            clears.innerText = "Delete"
+            clears.addEventListener("click", function () {
+                Deletedata(el.id)
+
+            })
+            var wish = document.createElement("button")
+            wish.innerText = "Add wishlist"
+            wish.addEventListener("click", function () {
+                adddatawishlist(el)
+
+            })
+
+
+            div.append(img)
+            div1.append(year, brands)
+            div2.append(run, owner, engin)
+            div3.append(month, price)
+            div4.append(edit, clears, wish)
+
+
+
+            box.append(div, div1, type, div2, div3, div4)
+
+
+            document.querySelector("#container").append(box);
+        });
+    }
+</script>

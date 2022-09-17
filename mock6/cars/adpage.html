@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        #form {
+            width: 50%;
+            height: 500px;
+            background-color: black;
+            text-align: center;
+            color: white;
+            border-radius: 20px;
+            margin-left: 40%;
+        }
+
+        #submit {
+            color: whiteback;
+            background-color: red;
+            border-radius: 20px;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="nav">
+        <div><a href="adpage.html">Ad Page</a></div>
+        <div><a href="cars.html">Cars Page</a></div>
+        <div><a href="wishlist.html">Wishlist</a></div>
+    </div>
+
+    <form action="" id="form">
+        <h2>Cars Application Details</h2>
+        <br>
+        <br>
+        <select name="brand" id="brand">
+            <option value="/">Brand </option>
+            <option class="option" value="tata">Tata</option>
+            <option class="option" value="bmw">BMW</option>
+            <option class="option" value="mercedes">Mercedes</option>
+            <option class="option" value="Mahindra">Mahindra</option>
+        </select>
+        <br>
+        <br>
+        <select name="type" id="type">
+            <option value="/">Select Type</option>
+            <option value="manual">Manual</option>
+            <option value="automated">Automated</option>
+
+        </select>
+        <br>
+        <br>
+        <select name="year" id="year">
+            <option value="/">Year of Purchase</option>
+            <option value="2011">2011</option>
+            <option value="2014">2014</option>
+
+        </select>
+        <br>
+        <br>
+        <input placeholder="Kilometer driven" id="kms" name="kms" type="number" />
+        <br>
+        <br>
+        <input id="desc" type="text" placeholder="Enter Desc " />
+        <br>
+        <br>
+        <input placeholder="Price" type="number" name="Price" id="price" />
+        <br>
+        <br>
+        <input id="submit" type="submit" name="submit" value="Submit" />
+        <br>
+        <br>
+    </form>
+</body>
+
+</html>
+<script>
+    document.querySelector("#form").addEventListener("submit", myFunction);
+      document.querySelector("#submit").addEventListener("click", enterotp)
+
+    function myFunction() {
+        event.preventDefault();
+        var jobObj = {
+            kilo: document.querySelector("#kms").value,
+            type: document.querySelector("#type").value,
+            brand: document.querySelector("#brand").value,
+            year: document.querySelector("#year").value,
+            description: document.querySelector("#desc").value,
+            price: document.querySelector("#price").value,
+             
+
+        };
+        fetch("https://masai-apicars.herokuapp.com/cars", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jobObj)
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res)
+                 window.location.href = "otp.html"
+            })
+            .catch((err) => { });
+
+    }
+    
+    
+</script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Page</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+    <div id="heading">
+        <h2>Here Updated You Car Price </h2>
+          </div>
+    
+    <div id="edit">
+        <form action="" id="form">
+        <input type="Number" placeholder="Enter the New Price" id="price">
+        <input id="submit" type="submit" value="Updated" />
+    </div>
+</form>
+</body>
+</html>
+<script>
+    let id=localStorage.getItem("newid")
+    document.querySelector("#form").addEventListener("submit", myFunction);
+    function myFunction() {
+      event.preventDefault();
+      var updatedprice = {
+      
+        Price: document.querySelector("#price").value,
+        
+      };
+      fetch(`https://masai-apicars.herokuapp.com/cars/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(updatedprice)
+    })
+      .then((res) => res.json())
+      .then((res) => {
+       console.log(res)
+       alert("successfully Updated the Price")
+       window.location.href="cars.html"
+      })
+      .catch((err) => {});
+     
+    }
+    
+</script>

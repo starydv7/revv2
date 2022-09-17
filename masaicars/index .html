@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div id="links">
+            <div><a href="index.html">Ad</a></div>
+            <div><a href="cars.html">Cars</a></div>
+            <div><a href="wishlist.html">Wishlist</a></div>
+         </div>
+    </div>
+    <form action="" id="form">
+        <h2>Enter Your Cars Details</h2>
+        <select name="brand" id="brand">
+            <option value="/">Select Brand of car</option>
+          <option class="option" value="Suzuki">Suzuki</option>
+          <option class="option" value="Hyundai">Hyundai</option>
+          <option class="option" value="Tata ">Tata </option>
+          <option class="option" value="Kia">Kia</option>
+          <option class="option" value="Mahindra ">Mahindra </option>
+          <option class="option" value="Toyota">Toyota</option>
+          <option class="option" value="Honda">Honda</option>
+        </select>
+        <select name="type" id="type">
+            <option value="/">Select Manual or Automated </option>
+          <option value="Manual ">Manual </option>
+          <option value="Automated ">Automated </option>
+         </select>
+         <select name="year" id="year">
+            <option value="/">Select Year of purchase</option>
+          <option class="option" value="2010">2010</option>
+          <option class="option" value="2011">2011</option>
+          <option class="option" value="2012 ">2012</option>
+          <option class="option" value="2013">2013</option>
+          <option class="option" value="2014 ">2014</option>
+          <option class="option" value="2015">2015</option>
+          <option class="option" value="2016">2016</option>
+        </select>
+        <input placeholder="Enter How many kilometers has your car run" id="kms" name="kms" type="number" />
+        <input placeholder="Enter Description" type="text" name="Description" id="Description" />
+        <input id="Price"
+        type="number"
+        placeholder="Enter Price "
+      />
+        
+       
+        <input id="submit" type="submit" name="submit" value="ADD" />
+      </form>
+</body>
+</html>
+<script>
+    document.querySelector("#form").addEventListener("submit", myFunction);
+   
+
+   function myFunction() {
+     event.preventDefault();
+     var CarsDetails = {
+        brand: document.querySelector("#brand").value,
+        type: document.querySelector("#type").value,
+        year:document.querySelector("#year").value,
+        kms:document.querySelector("#kms").value,
+        Description: document.querySelector("#Description").value,
+        Price: document.querySelector("#Price").value,
+       
+     };
+     console.log(CarsDetails)
+     fetch("https://masai-apicars.herokuapp.com/cars", {
+     method: "POST",
+     headers: {
+       "Content-Type": "application/json"
+     },
+     body: JSON.stringify(CarsDetails)
+   })
+     .then((res) => res.json())
+     .then((res) => {
+      console.log(res)
+      alert("Ad posted successfully")
+      document.querySelector("#kms").value=""
+         document.querySelector("#Description").value=""
+         document.querySelector("#Price").value=""
+     })
+     .catch((err) => {});
+
+
+
+      
+    
+   }
+</script>

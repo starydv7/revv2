@@ -1,0 +1,16 @@
+.nav{
+    display: flex;
+    background-color: goldenrod;
+    height: 30px;
+    justify-content: space-around;
+    padding: 1%;
+
+}
+a{
+    color: black;
+    font-weight: 700;
+    font-size: 30px;
+}
+a:hover{
+    color: red;
+}

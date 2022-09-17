@@ -1,66 +1,204 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="index.css">
-        <style>
-           .container{
-            background-color: antiquewhite;
-            justify-content: space-between;
-           }
-           .container>td{
-            justify-content: space-around;
-           }
-        </style>
+<html lang="en">
 
-    </head>
-    <body>
-        <div id="links">
-            <div><a href="index.html">Home</a></div>
-            <div><a href="data.html">Data</a></div>
-            <div><a href="login.html">Login</a></div>
-            <div><a href="reports.html">Reports</a></div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+    <!-- ......Navbar---------  -->
+
+    <div id="links">
+        <div><a href="index.html">Home</a></div>
+        <div><a href="data.html">Data</a></div>
+        <div><a href="login.html">Login</a></div>
+        <div><a href="reports.html">Reports</a></div>
+    </div>
+    <!-- ......Heading---------  -->
+    <div id="heading">
+        <h2>Resigster User Data</h2>
+    </div>
+    <!-- ......Functionality---------  -->
+    <div id="mainbox1">
+        <div>
+            <h3>Filter by category :- <span>
+                    <select name="filter" id="filter" onchange="handlefilter(value)">
+                        <option value="/">Select Batch Name</option>
+                        <option value="WEB-13">WEB-13</option>
+                        <option value="WEB-14">WEB-14</option>
+                        <option value="WEB-15">WEB-15</option>
+                        <option value="WEB-16">WEB-16</option>
+                    </select>
+                </span></h3>
         </div>
-        <div class="container">
-            <thead>
-                <tbody>
-                    <td>
-                        <tr>Name</tr>
-                        <tr>Place</tr>
-                        <tr>Email</tr>
-                        <tr>Batch</tr>
-                        <tr>Profeesion</tr>
-                    </td>
-                </tbody>
-            </thead>
+        <div>
+            <h3>Sort by Salary :- <span>
+                    <select name="filter" id="filter" onchange="handlechange(value)">
+                        <option value="/">Sort by Salary</option>
+                        <option value="desc">High to Low</option>
+                        <option value="asc">Low to High</option>
+
+                    </select>
+                </span></h3>
+        </div>
+        <div id="innerbox">
+            <h3> Search by Name :- <span>
+                    <input type="text" id="search1" placeholder="Search the Name">
+                    <button id="search" onclick="searchHandle()">Search</button>
+                </span></h3>
 
         </div>
-        
-        <script src="" async defer>
-             let login_api_link = "https://pawan-033.herokuapp.com/users"
-                fetch(login_api_link, {
-                    method: "GET",
-                  
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(jobObj)
-                })
-                            .then((res) => res.json())
-                            .then((res) => {
-                                console.log(res)
-                            })
-                            .catch((err) => { });
+    </div>
+    <!-- ......Display Data Here---------  -->
+    <div id="container">
+
+    </div>
+
+</body>
+
+</html>
+<script>
+    let token = localStorage.getItem("Token")
+    //  ......Protected Route Funtionality---------  
+    if (token) {
+        fetchdata()
+    }
+    else {
+        window.location.href = "login.html"
+    }
+
+    let y;
+    function fetchdata() {
+        fetch("https://gentle-scrubland-49275.herokuapp.com/users")
+            .then((res) => res.json()).
+            then((res) => {
+                console.log(res)
+                y = res
+                getdata(res)
+            }).catch((err) => {
+                console.log(err)
+            })
 
     }
-        </script>
-    </body>
-</html>
+
+
+    /* Delete functionality*/
+    //   updated
+    function Deletedata(id) {
+
+        fetch(`https://pawan-033.herokuapp.com/users${id}`, {
+            method: "DELETE",
+
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((res) => res.json())
+            .then((res) => {
+                console.log(res)
+                fetchdata()
+            }).catch((err) => {
+                console.log(err)
+            })
+    }
+
+    // sorting functionality
+    function handlechange(value) {
+
+        if (value == "asc") {
+            let newdata = y.sort((a, b) => {
+                return a.age - b.age
+            })
+            getdata(newdata)
+
+        }
+        if (value == "desc") {
+            let newdata = y.sort((a, b) => {
+                return b.age - a.age
+            })
+            getdata(newdata)
+
+        }
+    }
+    //  filter functionality
+    function handlefilter(data) {
+        const newdata = y.filter((el) => {
+            return el.batch_name === data
+
+        })
+
+        getdata(newdata)
+
+
+    }
+    // serach functionality
+
+    function searchHandle() {
+        let value = document.getElementById("search1").value
+        if (value != "") {
+            const newdata = y.filter((el) => {
+                return el.name === value
+
+            })
+            getdata(newdata)
+
+        }
+    }
+
+    function getdata(data) {
+        document.querySelector("#container").innerHTML = ""
+        data.map(function (el) {
+            var box = document.createElement("div");
+
+            let img = document.createElement("img")
+            img.src = "https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png"
+            img.style.height = "120px"
+            img.style.width = "150px"
+
+
+            var div1 = document.createElement("div")
+            var name = document.createElement("h3")
+            name.innerText = "Name :-" + el.name
+            var age = document.createElement("h3")
+            age.innerText = "Age :-" + el.age
+
+            var place = document.createElement("h3")
+            place.innerText = "Palce :-" + el.place
+
+            var batch = document.createElement("h3")
+            batch.innerText = "batch_name :-" + el.batch_name
+            var role = document.createElement("h3")
+            role.innerText = "profession :-" + el.profession
+
+            var div2 = document.createElement("div")
+            div2.setAttribute("class", "button")
+            var edit = document.createElement("button")
+            edit.innerText = "Edit"
+            edit.addEventListener("click", function () {
+                Editdata(el)
+            })
+            var clears = document.createElement("button")
+            clears.innerText = "Delete"
+            clears.addEventListener("click", function () {
+                Deletedata(el.id)
+
+            })
+
+            div1.append(name, age, place, batch, role)
+            div2.append(edit, clears)
+
+            box.append(img, div1, div2)
+            document.querySelector("#container").append(box);
+        });
+
+    }
+
+
+
+
+
+
+</script>
